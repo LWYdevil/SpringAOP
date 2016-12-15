@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+
+    <bean id="calculateAdvice" class="com.roger.interceptor.CalculateAdvice"></bean>
+
+    <bean id="calculatePointcut" class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+        <property name="expression">
+            <value><![CDATA[(execution(* com.roger..*.*ServiceImpl.*(..)))]]></value>
+        </property>
+    </bean>
+
+    <bean id="calculateAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+          scope="prototype">
+        <property name="pointcut" ref="calculatePointcut"/>
+        <property name="advice" ref="calculateAdvice"/>
+    </bean>
+
+
+
+    <bean id="cacheAdvice" class="com.roger.interceptor.CacheAdvice"></bean>
+
+    <bean id="cachePointcut" class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+        <property name="expression">
+            <value>@annotation(com.roger.annotation.CacheMethod)</value>
+        </property>
+    </bean>
+
+    <bean id="cacheAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+          scope="prototype">
+        <property name="pointcut" ref="cachePointcut"/>
+        <property name="advice" ref="cacheAdvice"/>
+    </bean>
+
+    <aop:config>
+		<!--<aop:aspect id="calculateAspect" ref="calculateAdvisor">
+		</aop:aspect>-->
+
+        <!--<aop:aspect id="cacheAspect" ref="cacheAdvisor">
+            <aop:pointcut id="cachePointcut" expression="(execution(* com.roger..*.*ServiceImpl.get*(..)) or execution(* com.roger..*.*ServiceImpl.find*(..))) and  @annotation(cacheMethod)"/>
+        </aop:aspect>-->
+	</aop:config>
+
+</beans>

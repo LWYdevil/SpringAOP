@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://activemq.apache.org/schema/core
+    http://activemq.apache.org/schema/core/activemq-core-5.5.0.xsd">
+	
+	<!-- jms链接工厂，连接到jms服务 -->
+	<!--  
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL">
+            <value>tcp://localhost:61616</value>
+        </property>
+  	</bean>-->
+  	<bean id="jmsConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+         <property name="connectionFactory">
+             <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                 <property name="brokerURL">
+                     <value>tcp://localhost:61616</value>
+                 </property>
+                 <property name="useAsyncSend">
+                     <value>true</value>
+                 </property>
+             </bean>
+         </property>
+     </bean>
+  	
+  	<!-- jms模板，配置参数主要有连接工厂 -->
+  	<bean name="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsConnectionFactory" />
+    </bean>
+	
+	<!-- 消息队列 -->
+	<amq:queue name="Single" physicalName="ActiveMQ.VST_FRONT.Single" />
+	<amq:queue name="Email" physicalName="ActiveMQ.VST_FRONT.Email" />
+	
+	<!-- 消息发送者 -->
+	<bean id="queueProvider" class="com.roger.jms.QueueProvider">
+        <property name="jmsTemplate" ref="jmsTemplate"></property>
+        <property name="destination" value="ActiveMQ.VST_FRONT.Single"></property>
+    </bean>
+    
+    <!-- 订阅 
+	<bean id="messageListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg ref="queueReceiver" />
+		<property name="defaultListenerMethod" value="receive" />
+	</bean>-->
+	
+	<!-- 消息监听 模式   
+	<bean id="messageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="Single" />
+		<property name="messageListener" ref="messageListener" />
+		
+		<property name="concurrentConsumers" value="3"/>
+	</bean> -->
+    
+    <!-- 消息接受者 
+    <bean id="queueReceiver" class="com.roger.jms.QueueReceiver">
+        <property name="jmsTemplate" ref="jmsTemplate"></property>
+    </bean>-->
+	
+	
+</beans>
