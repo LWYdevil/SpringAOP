@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.roger.service.AnimalService;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +13,21 @@ import java.util.List;
 @Service("catService")
 public class CatServiceImpl implements AnimalService{
 
-	public String getName() {
-		return "Cat";
-	}
+    @Override
+    public String getName() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "Cat";
+    }
 
-	public void transfer() {
-		System.out.println("do cat transfer!!!");
-	}
+    public void transfer() {
+        System.out.println("do cat transfer!!!");
+    }
 
     @Override
-    @CalculateService()
     public void doInit() {
         try {
             Thread.sleep(150);
@@ -32,7 +38,12 @@ public class CatServiceImpl implements AnimalService{
     }
 
     @Override
-    public List<String> findParent(String name) {
+    public List<String> findParent(Model model) {
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<String> list = new ArrayList<String>();
         list.add("cat Mother");
         list.add("cat Father");
@@ -40,14 +51,13 @@ public class CatServiceImpl implements AnimalService{
     }
 
     @Transactional
-    @CalculateService()
-	public void setName(String name,Integer age) {
+    public void setName(String name,Integer age) {
         try {
             Thread.sleep(60);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println("catService name = "+name+" age = "+age);
-	}
+    }
 
 }

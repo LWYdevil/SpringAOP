@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.roger.annotation.PrintTime;
 import com.roger.service.AnimalService;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +14,21 @@ import java.util.List;
 @Service("dogService")
 public class DogServiceImpl implements AnimalService{
 
-	public String getName() {
-		return "Dog";
-	}
+    @Override
+    public String getName() {
+        try {
+            Thread.sleep(130);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "Dog";
+    }
 
-	public void transfer() {
-		System.out.println("do dog transfer!!!");
-	}
+    public void transfer() {
+        System.out.println("do dog transfer!!!");
+    }
 
     @Override
-    @CalculateService()
     public void doInit() {
         try {
             Thread.sleep(100);
@@ -34,21 +40,26 @@ public class DogServiceImpl implements AnimalService{
 
     @Override
     @CacheMethod
-    public List<String> findParent(String name) {
+    public List<String> findParent(Model model) {
+        try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<String> list = new ArrayList<String>();
         list.add("Dog Mother");
         list.add("Dog Father");
         return list;
     }
 
-    @CalculateService()
+    @Override
     public void setName(String name,Integer age) {
         try {
             Thread.sleep(40);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-		System.out.println("dogService name = "+name+" age = "+age);
-	}
+        System.out.println("dogService name = "+name+" age = "+age);
+    }
 
 }

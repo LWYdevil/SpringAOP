@@ -1,6 +1,8 @@
 package com.roger.service;
 
 
+import org.springframework.ui.Model;
+
 import java.util.List;
 
 public interface AnimalService {
@@ -13,5 +15,5 @@ public interface AnimalService {
 
     public void doInit();
 
-    public List<String> findParent(String name);
+    public List<String> findParent(Model model);
 }
