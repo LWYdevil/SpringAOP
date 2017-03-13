@@ -25,7 +25,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter{
             HttpServletResponse response, Object handler) throws Exception {
         System.out.println("CommonInterceptor拦截器: preHandle");
         ActiveMQObjectMessage message = new ActiveMQObjectMessage();
-        message.setObject(new User("roger"));
+        message.setObject(new User(1l,"roger"));
         queueProvider.send(message);
         
         return super.preHandle(request, response, handler);

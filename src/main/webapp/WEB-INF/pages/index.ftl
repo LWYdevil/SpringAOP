@@ -34,7 +34,7 @@
 
             $.ajax({
                 type:"GET",
-                url:"/helloword/"+url,
+                url:"/SpringAOP/"+url,
                 success:function(data){
                     $("#print").html(data);
                 },

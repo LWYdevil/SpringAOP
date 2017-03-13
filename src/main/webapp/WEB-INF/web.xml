@@ -11,7 +11,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring.xml</param-value>
+        <param-value>classpath*:spring.xml</param-value>
     </context-param>
 
 	<filter>
@@ -34,8 +34,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				/WEB-INF/spring-mvc.xml,
-                /WEB-INF/spring-aop.xml
+				classpath*:spring-mvc.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
