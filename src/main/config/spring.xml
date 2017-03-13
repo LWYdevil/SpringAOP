@@ -10,6 +10,19 @@
 		<property name="prefix" value="/WEB-INF/pages/"/>
 		<property name="suffix" value=".ftl"/>
 	</bean>-->
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:jdbc.properties</value>
+				<value>classpath*:const.properties</value>
+				<!--<value>classpath*:jms.properties</value>
+				<value>classpath*:dubbo.properties</value>
+				<value>classpath*:redis.properties</value>
+				<value>classpath*:router_redis.properties</value>-->
+			</list>
+		</property>
+	</bean>
 	
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<!-- 国际化信息所在的文件名 -->
@@ -21,4 +34,8 @@
 	<!-- 基于Session的国际化实现 -->
  	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 
+	<import resource="classpath*:spring-aop.xml" />
+	<import resource="classpath*:spring-dao.xml"/>
+	<import resource="classpath*:spring-database.xml"/>
+	<import resource="classpath*:spring-jms.xml"/>
 </beans>
