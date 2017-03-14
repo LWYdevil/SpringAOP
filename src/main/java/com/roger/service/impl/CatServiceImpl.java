@@ -58,6 +58,7 @@ public class CatServiceImpl implements AnimalService{
             e.printStackTrace();
         }
         System.out.println("catService name = "+name+" age = "+age);
+        System.out.println("aaa");
     }
 
 }
