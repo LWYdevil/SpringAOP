@@ -57,7 +57,7 @@ public class CatServiceImpl implements AnimalService{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("catService name = "+name+" age = "+age);
+        System.out.println("catService1 name = "+name+" age = "+age);
     }
 
 }
