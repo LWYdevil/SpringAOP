@@ -20,7 +20,7 @@ public class UserController {
 
     @RequestMapping(value="/addUser",method = RequestMethod.GET)
     public String addUser(HttpServletRequest request,HttpServletResponse response,String name){
-        userService.insert(new User(1l,name));
+        userService.insert(new User(3l,name));
         return "/print";
     }
 }

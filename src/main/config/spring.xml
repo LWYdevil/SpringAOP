@@ -34,8 +34,8 @@
 	<!-- 基于Session的国际化实现 -->
  	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 
+	<import resource="classpath*:spring-database.xml"/>
 	<import resource="classpath*:spring-aop.xml" />
 	<import resource="classpath*:spring-dao.xml"/>
-	<import resource="classpath*:spring-database.xml"/>
 	<import resource="classpath*:spring-jms.xml"/>
 </beans>
