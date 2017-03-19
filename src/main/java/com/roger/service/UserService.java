@@ -7,4 +7,5 @@ import com.roger.bean.User;
  */
 public interface UserService {
     public void insert(User user);
+    public User getUserById(Long id);
 }
